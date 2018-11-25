@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 n_bins = 8
-data_req = pd.read_csv('/home/lumi/Dropbox/unipi/paper_NVD_forcasting/distribution_fitting/CDF.csv', skiprows = 1, names=['x', 'Burr', 'Dagum', 'Pearson_5_3P'], sep=",")
+data_req = pd.read_csv('C:\Users\lumi\Dropbox\Unipi\paper_NVD_forcasting\distribution_fitting\CDF.csv', skiprows = 1, names=['x', 'Burr', 'Dagum', 'Pearson_5_3P'], sep=",")
 #Different function: data_req = pd.read_table("/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics/distribution_fitting/CDF.csv", sep=",")
 #To sort values: sorted_values = data_req.apply(lambda x: x.sort_values())
 

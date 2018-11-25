@@ -1,10 +1,48 @@
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import pandas as pd
+import plotly
+import plotly.plotly as py
+import plotly.figure_factory as ff
+import plotly.graph_objs as go
 
+data_req = pd.read_csv(
+    r'C:\Users\lumi\Dropbox\Unipi\paper_NVD_forcasting\distribution_fitting\CDF.csv',
+    skiprows = 1,
+    names=['x', 'Burr', 'Dagum', 'Pearson_5_3P'],
+    sep=",")
 
-fig = plt.figure()  # an empty figure with no axes
-fig.suptitle('No axes on this figure')  # Add a title so we know which it is
+cdf_data = data_req.x
+burr = data_req.Burr.values
+dagum = data_req.Dagum.values
+pearson_5_3P = data_req.Pearson_5_3P.values
 
-fig, ax_lst = plt.subplots(2, 2)  # a figure with a 2x2 grid of Axes
-plt.show()
+# Create traces
+trace0 = go.Scatter(
+    x = burr,
+    mode = 'lines',
+    name = 'burr'
+)
+trace1 = go.Scatter(
+    x = dagum,
+    mode = 'lines',
+    name = 'dagum'
+)
+trace2 = go.Scatter(
+    x = pearson_5_3P,
+    mode = 'lines',
+    name = 'pearson_5_3P'
+)
+
+# data = [go.Histogram(
+#     histfunc="count",
+#     histnorm="probability density",
+#     x=cdf_data,
+#     nbinsx=10,
+#     cumulative=dict(enabled=True)),
+#     trace0,
+#     trace1,
+#     trace2]
+
+data = [trace0, trace1, trace2]
+
+plotly.offline.plot(data, filename='cumulativeHistogram.html')
