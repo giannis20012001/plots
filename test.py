@@ -8,13 +8,15 @@ import plotly.graph_objs as go
 data_req = pd.read_csv(
     r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/distribution_fitting/CDF.csv',
     skiprows = 1,
-    names=['x', 'Burr', 'Dagum', 'Pearson_5_3P'],
+    names=['Initial_data', 'x', 'Burr', 'Dagum', 'Pearson_5_3P'],
     sep=",")
 
 cdf_data = data_req.x
-burr = data_req.Burr.values
-dagum = data_req.Dagum.values
-pearson_5_3P = data_req.Pearson_5_3P.values
+burr = data_req.Burr
+dagum = data_req.Dagum
+pearson_5_3P = data_req.Pearson_5_3P
+initial_data = data_req.Initial_data
+initial_data.dropna()
 
 # Create traces
 trace0 = go.Scatter(
@@ -33,14 +35,26 @@ trace2 = go.Scatter(
     name = 'pearson_5_3P'
 )
 
+# data = [go.Histogram(
+#     histfunc="count",
+#     histnorm="probability density",
+#     x=initial_data,
+#     xbins=dict(
+#         start='1.9',
+#         end='10',
+#         size='1'),
+#     autobinx=False,
+#     cumulative=dict(enabled=True))]
+
 data = [go.Histogram(
     histfunc="count",
     histnorm="probability density",
-    x=cdf_data,
-    nbinsx=10,
+    x=initial_data,
+    nbinsx=8,
+    autobinx=False,
     cumulative=dict(enabled=True))]
 
-#data = [trace0, trace1, trace2]
+# data = [trace0, trace1, trace2]
 
 # data = [go.Histogram(
 #     histfunc="count",
