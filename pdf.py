@@ -3,8 +3,8 @@ import plotly
 import plotly.graph_objs as go
 
 data_req = pd.read_csv(
-    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/distribution_fitting/CDF.csv',
-    skiprows=1,
+    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/distribution_fitting/PDF.csv',
+    skiprows = 1,
     names=['Initial_data', 'x', 'Burr', 'Dagum', 'Pearson_5_3P'],
     sep=",")
 
@@ -32,8 +32,7 @@ trace0 = go.Histogram(
             width=1.5,
         )
     ),
-    opacity=0.1,
-    cumulative=dict(enabled=True)
+    opacity=0.1
 )
 
 trace1 = go.Scatter(
@@ -57,36 +56,7 @@ trace3 = go.Scatter(
     name='pearson_5_3P'
 )
 
-# data = [go.Histogram(
-#     histfunc="count",
-#     histnorm="probability density",
-#     x=initial_data,
-#     xbins=dict(
-#         start='1',
-#         end='10',
-#         size='1.2'),
-#     autobinx=False,
-#     cumulative=dict(enabled=True))]
-
-# data = [go.Histogram(
-#     histfunc="count",
-#     histnorm="probability density",
-#     x=initial_data,
-#     nbinsx=9,
-#     autobinx=False,
-#     cumulative=dict(enabled=True))]
-
-# data = [go.Histogram(
-#     histfunc="count",
-#     histnorm="probability density",
-#     x=initial_data,
-#     nbinsx=9,
-#     cumulative=dict(enabled=True)),
-#     trace0,
-#     trace1,
-#     trace2]
-
 data = [trace0, trace1, trace2, trace3]
 
-plotly.offline.plot(data, filename='cdf.html')
-# plotly.offline.plot(data, filename='cumulativeHistogram.html', image="svg")
+plotly.offline.plot(data, filename='pdf.html')
+#plotly.offline.plot(data, filename='cumulativeHistogram.html', image="svg")

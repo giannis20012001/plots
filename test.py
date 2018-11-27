@@ -1,95 +1,33 @@
-import numpy as np
 import pandas as pd
-import plotly
-import plotly.plotly as py
-import plotly.figure_factory as ff
-import plotly.graph_objs as go
+import numpy as np
+import matplotlib.pyplot as plt
 
+n_bins = 8
 data_req = pd.read_csv(
-    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/distribution_fitting/CDF.csv',
-    skiprows = 1,
-    names=['Initial_data', 'x', 'Burr', 'Dagum', 'Pearson_5_3P'],
+    r'C:\Users\lumi\Dropbox\Unipi\paper_NVD_forcasting\distribution_fitting\CDF.csv',
+    skiprows=1,
+    names=['x', 'Burr', 'Dagum', 'Pearson_5_3P'],
     sep=",")
+# Different function:
+# data_req = pd.read_table("/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics/distribution_fitting/CDF.csv", sep=",")
+# To sort values: sorted_values = data_req.apply(lambda x: x.sort_values())
 
-initial_data = data_req.Initial_data
-initial_data.dropna()
 x = data_req.x
 burr = data_req.Burr
 dagum = data_req.Dagum
 pearson_5_3P = data_req.Pearson_5_3P
+fig, ax = plt.subplots()
 
-# Create traces
-trace0 = go.Histogram(
-    histfunc="count",
-    histnorm="probability density",
-    x=initial_data,
-    xbins=dict(
-        start='1.9',
-        end='10',
-        size='1.0125'),
-    autobinx=False,
-    marker=dict(
-        color='rgb(158,202,225)',
-        line=dict(
-            color='rgba(17, 157, 255, 0.5)',
-            width=1.5,
-        )
-    ),
-    opacity=0.1,
-    cumulative=dict(enabled=True)
-)
+# plot the cumulative histogram
+# n, bins, patches = plt.hist(x.values, n_bins, density=True, histtype='step', cumulative=True, label='Sample')
+n, bins, patches = plt.hist(x.values, n_bins, density=1, histtype='step', cumulative=True, label='Sample')
 
-trace1 = go.Scatter(
-    x=x,
-    y=burr,
-    mode='lines',
-    name='burr'
-)
+# ax.plot(bins, burr, dagum, pearson_5_3P)
+ax.plot(bins)
+ax.set_xlabel('Smarts')
+ax.set_ylabel('Probability density')
+ax.set_title(r'Histogram of IQ: $\mu=100$, $\sigma=15$')
 
-trace2 = go.Scatter(
-    x=x,
-    y=dagum,
-    mode='lines',
-    name='dagum'
-)
-
-trace3 = go.Scatter(
-    x=x,
-    y=pearson_5_3P,
-    mode='lines',
-    name='pearson_5_3P'
-)
-
-# data = [go.Histogram(
-#     histfunc="count",
-#     histnorm="probability density",
-#     x=initial_data,
-#     xbins=dict(
-#         start='1',
-#         end='10',
-#         size='1.2'),
-#     autobinx=False,
-#     cumulative=dict(enabled=True))]
-
-# data = [go.Histogram(
-#     histfunc="count",
-#     histnorm="probability density",
-#     x=initial_data,
-#     nbinsx=9,
-#     autobinx=False,
-#     cumulative=dict(enabled=True))]
-
-# data = [go.Histogram(
-#     histfunc="count",
-#     histnorm="probability density",
-#     x=initial_data,
-#     nbinsx=9,
-#     cumulative=dict(enabled=True)),
-#     trace0,
-#     trace1,
-#     trace2]
-
-data = [trace0, trace1, trace2, trace3]
-
-plotly.offline.plot(data, filename='cumulativeHistogram.html')
-#plotly.offline.plot(data, filename='cumulativeHistogram.html', image="svg")
+# Tweak spacing to prevent clipping of ylabel
+fig.tight_layout()
+plt.show()
