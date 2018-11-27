@@ -89,4 +89,4 @@ trace3 = go.Scatter(
 data = [trace0, trace1, trace2, trace3]
 
 plotly.offline.plot(data, filename='cdf.html')
-# plotly.offline.plot(data, filename='cumulativeHistogram.html', image="svg")
+# plotly.offline.plot(data, filename='cdf.html', image="svg")
