@@ -35,24 +35,24 @@ trace2 = go.Scatter(
     name = 'pearson_5_3P'
 )
 
-# data = [go.Histogram(
-#     histfunc="count",
-#     histnorm="probability density",
-#     x=initial_data,
-#     xbins=dict(
-#         start='1.9',
-#         end='10',
-#         size='1'),
-#     autobinx=False,
-#     cumulative=dict(enabled=True))]
-
 data = [go.Histogram(
     histfunc="count",
     histnorm="probability density",
     x=initial_data,
-    nbinsx=8,
+    xbins=dict(
+        start='1.9',
+        end='10',
+        size='1.1'),
     autobinx=False,
     cumulative=dict(enabled=True))]
+
+# data = [go.Histogram(
+#     histfunc="count",
+#     histnorm="probability density",
+#     x=initial_data,
+#     nbinsx=9,
+#     autobinx=False,
+#     cumulative=dict(enabled=True))]
 
 # data = [trace0, trace1, trace2]
 
