@@ -38,11 +38,18 @@ data = [go.Histogram(
     histnorm="probability density",
     x=cdf_data,
     nbinsx=10,
-    cumulative=dict(enabled=True)),
-    trace0,
-    trace1,
-    trace2]
+    cumulative=dict(enabled=True))]
 
 #data = [trace0, trace1, trace2]
+
+# data = [go.Histogram(
+#     histfunc="count",
+#     histnorm="probability density",
+#     x=cdf_data,
+#     nbinsx=10,
+#     cumulative=dict(enabled=True)),
+#     trace0,
+#     trace1,
+#     trace2]
 
 plotly.offline.plot(data, filename='cumulativeHistogram.html')
