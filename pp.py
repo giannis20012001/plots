@@ -3,7 +3,7 @@ import plotly
 import plotly.graph_objs as go
 
 data_req = pd.read_csv(
-    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/distribution_fitting/PDF.csv',
+    r'C:\Users\lumi\Dropbox\Unipi\paper_NVD_forcasting\distribution_fitting\PDF.csv',
     skiprows=1,
     names=['x', 'P_empirical', 'Burr', 'Dagum', 'Pearson_5_3P'],
     sep=",")
@@ -55,5 +55,26 @@ trace0 = go.Scatter(
 # data = [trace0, trace1, trace2, trace3]
 data = [trace0]
 
-plotly.offline.plot(data, filename='pp.html')
+layout = go.Layout(
+    title='P-P Plot',
+    xaxis=dict(
+        title='P(Empirical)',
+        titlefont=dict(
+            family='Courier New, monospace',
+            size=18,
+            color='#7f7f7f'
+        )
+    ),
+    yaxis=dict(
+        title='F(Model)',
+        titlefont=dict(
+            family='Courier New, monospace',
+            size=18,
+            color='#7f7f7f'
+        )
+    )
+)
+
+fig = go.Figure(data=data, layout=layout)
+plotly.offline.plot(fig, filename='pp.html')
 # plotly.offline.plot(data, filename='pp.html', image="svg")

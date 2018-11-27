@@ -3,7 +3,7 @@ import plotly
 import plotly.graph_objs as go
 
 data_req = pd.read_csv(
-    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/distribution_fitting/PDF.csv',
+    r'C:\Users\lumi\Dropbox\Unipi\paper_NVD_forcasting\distribution_fitting\PDF.csv',
     skiprows = 1,
     names=['Initial_data', 'x', 'Burr', 'Dagum', 'Pearson_5_3P'],
     sep=",")
@@ -32,31 +32,53 @@ trace0 = go.Histogram(
             width=1.5,
         )
     ),
-    opacity=0.1
+    opacity=0.5,
+    name='Histogram'
 )
 
 trace1 = go.Scatter(
     x=x,
     y=burr,
     mode='lines',
-    name='burr'
+    name='Burr'
 )
 
 trace2 = go.Scatter(
     x=x,
     y=dagum,
     mode='lines',
-    name='dagum'
+    name='Dagum'
 )
 
 trace3 = go.Scatter(
     x=x,
     y=pearson_5_3P,
     mode='lines',
-    name='pearson_5_3P'
+    name='Pearson 5(3P)'
 )
 
 data = [trace0, trace1, trace2, trace3]
 
-# plotly.offline.plot(data, filename='pdf.html')
-plotly.offline.plot(data, filename='pdf.html', image="svg")
+layout = go.Layout(
+    title='Probability Density Function',
+    xaxis=dict(
+        title='x',
+        titlefont=dict(
+            family='Courier New, monospace',
+            size=18,
+            color='#7f7f7f'
+        )
+    ),
+    yaxis=dict(
+        title='f(x)',
+        titlefont=dict(
+            family='Courier New, monospace',
+            size=18,
+            color='#7f7f7f'
+        )
+    )
+)
+
+fig = go.Figure(data=data, layout=layout)
+plotly.offline.plot(fig, filename='pdf.html')
+# plotly.offline.plot(data, filename='pdf.html', image="svg")
