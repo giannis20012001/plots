@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.graph_objs as go
 
 data_req = pd.read_csv(
-    r'C:\Users\lumi\Dropbox\Unipi\paper_NVD_forcasting\distribution_fitting\CDF.csv',
+    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/distribution_fitting/CDF.csv',
     skiprows=1,
     names=['Initial_data', 'x', 'Burr', 'Dagum', 'Pearson_5_3P'],
     sep=",")
@@ -110,5 +110,5 @@ layout = go.Layout(
 )
 
 fig = go.Figure(data=data, layout=layout)
-plotly.offline.plot(fig, filename='cdf.html')
-# plotly.offline.plot(fig, filename='cdf.html', image="svg")
+# plotly.offline.plot(fig, filename='cdf.html')
+plotly.offline.plot(fig, filename='cdf.html', image="svg")
