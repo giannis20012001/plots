@@ -3,7 +3,7 @@ import plotly
 import plotly.graph_objs as go
 
 data_req = pd.read_csv(
-    r'C:\Users\lumi\Dropbox\Unipi\paper_NVD_forcasting\distribution_fitting\PDF.csv',
+    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_&_distribution_fitting/PDF.csv',
     skiprows = 1,
     names=['Initial_data', 'x', 'Burr', 'Dagum', 'Pearson_5_3P'],
     sep=",")
@@ -80,5 +80,5 @@ layout = go.Layout(
 )
 
 fig = go.Figure(data=data, layout=layout)
-plotly.offline.plot(fig, filename='pdf.html')
-# plotly.offline.plot(data, filename='pdf.html', image="svg")
+# plotly.offline.plot(fig, filename='pdf.html')
+plotly.offline.plot(fig, filename='pdf.html', image="svg")

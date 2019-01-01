@@ -3,7 +3,7 @@ import plotly
 import plotly.graph_objs as go
 
 data_req = pd.read_csv(
-    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/distribution_fitting/various_prolt_data.csv',
+    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_&_distribution_fitting/scatter_plot_original.csv',
     skiprows=1,
     names=['published_datetime', 'score'],
     sep=",")
