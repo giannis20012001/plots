@@ -39,6 +39,7 @@ data = [trace0, trace1]
 layout = dict(title = 'Cumulative Vulnerability Scores Regression Modeling',
               xaxis = dict(title = 'Dates'),
               yaxis = dict(title = 'Cumulative Score'),
+              legend=dict(orientation="h")
               )
 
 fig = dict(data=data, layout=layout)

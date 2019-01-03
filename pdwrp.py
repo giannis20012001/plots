@@ -27,6 +27,7 @@ data = [trace0]
 layout = dict(title = 'Residual Plot of Published Datetimes',
               xaxis = dict(title = 'Dates'),
               yaxis = dict(title = 'Residuals'),
+              legend=dict(orientation="h")
               )
 
 fig = dict(data=data, layout=layout)

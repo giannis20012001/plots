@@ -27,6 +27,7 @@ data = [trace0]
 layout = dict(title = 'Normal Probability Plot',
               xaxis = dict(title = 'Sample Percentile'),
               yaxis = dict(title = 'Weekly Score Probability Output'),
+              legend=dict(orientation="h")
               )
 
 fig = dict(data=data, layout=layout)

@@ -106,7 +106,8 @@ layout = go.Layout(
             size=18,
             color='#7f7f7f'
         )
-    )
+    ),
+    legend=dict(orientation="h")
 )
 
 fig = go.Figure(data=data, layout=layout)
