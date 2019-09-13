@@ -2,8 +2,9 @@ import plotly
 import pandas as pd
 import plotly.graph_objs as go
 
+plotly.io.orca.config.executable = '/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/orca-1.2.1-x86_64.AppImage'
 data_req = pd.read_csv(
-    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_&_distribution_fitting/CDF.csv',
+    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/CDF.csv',
     skiprows=1,
     names=['Initial_data', 'x', 'Burr', 'Dagum', 'Pearson_5_3P'],
     sep=",")
@@ -90,9 +91,10 @@ trace3 = go.Scatter(
 data = [trace0, trace1, trace2, trace3]
 
 layout = go.Layout(
-    title='Cumulative Distribution Function',
+    # title='Cumulative Distribution Function',
     xaxis=dict(
         title='x',
+        ticks="inside",
         titlefont=dict(
             family='Courier New, monospace',
             size=18,
@@ -101,15 +103,20 @@ layout = go.Layout(
     ),
     yaxis=dict(
         title='F(x)',
+        ticks="inside",
         titlefont=dict(
             family='Courier New, monospace',
             size=18,
             color='#7f7f7f'
         )
     ),
-    legend=dict(orientation="h")
+    # legend=dict(orientation="h")
+    margin=dict(l=0, r=0, t=0, b=0),
+    font=dict(size=18),
+    legend=dict(orientation="v",x=.75, y=0)
 )
 
 fig = go.Figure(data=data, layout=layout)
 # plotly.offline.plot(fig, filename='cdf.html')
-plotly.offline.plot(fig, filename='cdf.html', image="svg")
+# plotly.offline.plot(fig, filename='cdf.html', image="svg")
+fig.write_image("cdf.pdf")

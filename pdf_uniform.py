@@ -4,17 +4,15 @@ import plotly.graph_objs as go
 
 plotly.io.orca.config.executable = '/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/orca-1.2.1-x86_64.AppImage'
 data_req = pd.read_csv(
-    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/PDF.csv',
+    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/PDF_Uniform_Distribution/PDF.csv',
     skiprows = 1,
-    names=['Initial_data', 'x', 'Burr', 'Dagum', 'Pearson_5_3P'],
+    names=['x', 'Uniform'],
     sep=",")
 
-initial_data = data_req.Initial_data
+initial_data = data_req.x
 initial_data.dropna()
 x = data_req.x
-burr = data_req.Burr
-dagum = data_req.Dagum
-pearson_5_3P = data_req.Pearson_5_3P
+uniform = data_req.Uniform
 
 # Create traces
 trace0 = go.Histogram(
@@ -39,26 +37,12 @@ trace0 = go.Histogram(
 
 trace1 = go.Scatter(
     x=x,
-    y=burr,
+    y=uniform,
     mode='lines',
-    name='Burr'
+    name='Uniform'
 )
 
-trace2 = go.Scatter(
-    x=x,
-    y=dagum,
-    mode='lines',
-    name='Dagum'
-)
-
-trace3 = go.Scatter(
-    x=x,
-    y=pearson_5_3P,
-    mode='lines',
-    name='Pearson 5(3P)'
-)
-
-data = [trace0, trace1, trace2, trace3]
+data = [trace0, trace1]
 
 layout = go.Layout(
     # title='Probability Density Function',
@@ -89,4 +73,4 @@ layout = go.Layout(
 fig = go.Figure(data=data, layout=layout)
 # plotly.offline.plot(fig, filename='pdf.html')
 # plotly.offline.plot(fig, filename='pdf.html', image="svg")
-fig.write_image("pdf.pdf")
+fig.write_image("pdf_uniform.pdf")

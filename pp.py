@@ -2,8 +2,9 @@ import pandas as pd
 import plotly
 import plotly.graph_objs as go
 
+plotly.io.orca.config.executable = '/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/orca-1.2.1-x86_64.AppImage'
 data_req = pd.read_csv(
-    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_&_distribution_fitting/p-p_plot.csv',
+    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/p-p_plot.csv',
     skiprows=1,
     names=['original_x', 'x', 'P_empirical', 'Burr', 'Dagum', 'Pearson_5_3P'],
     sep=",")
@@ -57,9 +58,10 @@ data = [trace0, trace1, trace2, trace3]
 # data = [trace0]
 
 layout = go.Layout(
-    title='P-P Plot',
+    #title='P-P Plot',
     xaxis=dict(
         title='P(Empirical)',
+        ticks="inside",
         titlefont=dict(
             family='Courier New, monospace',
             size=18,
@@ -68,15 +70,20 @@ layout = go.Layout(
     ),
     yaxis=dict(
         title='P(Model)',
+        ticks="inside",
         titlefont=dict(
             family='Courier New, monospace',
             size=18,
             color='#7f7f7f'
         )
     ),
-    legend=dict(orientation="h")
+    # legend=dict(orientation="h")
+    margin=dict(l=0, r=0, t=0, b=0),
+    font=dict(size=18),
+    legend=dict(orientation="v",x=.75, y=0)
 )
 
 fig = go.Figure(data=data, layout=layout)
-# plotly.offline.plot(fig, filename='pp.html')
-plotly.offline.plot(fig, filename='pp.html', image="svg")
+# plotly.offline.plot(fig, filename='p-p_plot.html')
+# plotly.offline.plot(fig, filename='p-p_plot.html', image="svg")
+fig.write_image("p-p_plot.pdf")
