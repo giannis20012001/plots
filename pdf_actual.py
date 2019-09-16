@@ -4,25 +4,29 @@ import plotly.graph_objs as go
 
 plotly.io.orca.config.executable = '/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/orca-1.2.1-x86_64.AppImage'
 data_req = pd.read_csv(
-    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/PDF_Uniform_Distribution/PDF.csv',
+    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/PDF_Real_And_Forecasted/PDF_Actual.csv',
     skiprows = 1,
-    names=['Initial_data', 'x', 'Uniform'],
+    names=['Initial_data', 'x', 'Cauchy', 'Dagum_4P', 'Error', 'Laplace'],
     sep=",")
 
 initial_data = data_req.Initial_data
 initial_data.dropna()
 x = data_req.x
-uniform = data_req.Uniform
+cauchy = data_req.Cauchy
+dagum_4P = data_req.Dagum_4P
+error = data_req.Error
+laplace = data_req.Laplace
 
 # Create traces
 trace0 = go.Histogram(
     histfunc="count",
     histnorm="probability density",
     x=initial_data,
+    # nbinsx=4,
     xbins=dict(
-        start='1.9',
-        end='10',
-        size='1.0125'),
+        start='7.2',
+        end='8.029',
+        size='0.09'),
     autobinx=False,
     marker=dict(
         color='rgb(158,202,225)',
@@ -37,12 +41,33 @@ trace0 = go.Histogram(
 
 trace1 = go.Scatter(
     x=x,
-    y=uniform,
+    y=cauchy,
     mode='lines',
-    name='Uniform'
+    name='Cauchy'
 )
 
-data = [trace0, trace1]
+trace2 = go.Scatter(
+    x=x,
+    y=dagum_4P,
+    mode='lines',
+    name='Dagum (4P)'
+)
+
+trace3 = go.Scatter(
+    x=x,
+    y=error,
+    mode='lines',
+    name='Error'
+)
+
+trace4 = go.Scatter(
+    x=x,
+    y=laplace,
+    mode='lines',
+    name='Laplace'
+)
+
+data = [trace0, trace1, trace2, trace3, trace4]
 
 layout = go.Layout(
     # title='Probability Density Function',
@@ -71,6 +96,6 @@ layout = go.Layout(
 )
 
 fig = go.Figure(data=data, layout=layout)
-# plotly.offline.plot(fig, filename='pdf.html')
-# plotly.offline.plot(fig, filename='pdf.html', image="svg")
-fig.write_image("pdf_uniform.pdf")
+# plotly.offline.plot(fig, filename='pdf_actual.html')
+# plotly.offline.plot(fig, filename='pdf_actual.html', image="svg")
+fig.write_image("pdf_actual.pdf")
