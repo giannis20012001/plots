@@ -20,14 +20,14 @@ laplace = data_req.Laplace
 # Create traces
 trace0 = go.Histogram(
     histfunc="count",
-    histnorm="probability density",
+    histnorm='probability density',
     x=initial_data,
-    # nbinsx=4,
+    # nbinsx=5,
     xbins=dict(
-        start='7.2',
-        end='8.029',
-        size='0.09'),
-    autobinx=False,
+        start='1.9',
+        end='10',
+        size='2.1'), #2.6
+    # autobinx=False,
     marker=dict(
         color='rgb(158,202,225)',
         line=dict(
@@ -43,6 +43,7 @@ trace1 = go.Scatter(
     x=x,
     y=cauchy,
     mode='lines',
+    line_width=1,
     name='Cauchy'
 )
 
@@ -50,6 +51,7 @@ trace2 = go.Scatter(
     x=x,
     y=dagum_4P,
     mode='lines',
+    line_width=1,
     name='Dagum (4P)'
 )
 
@@ -57,6 +59,7 @@ trace3 = go.Scatter(
     x=x,
     y=error,
     mode='lines',
+    line_width=1,
     name='Error'
 )
 
@@ -64,6 +67,7 @@ trace4 = go.Scatter(
     x=x,
     y=laplace,
     mode='lines',
+    line_width=1,
     name='Laplace'
 )
 

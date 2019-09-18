@@ -4,28 +4,30 @@ import plotly.graph_objs as go
 
 plotly.io.orca.config.executable = '/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/orca-1.2.1-x86_64.AppImage'
 data_req = pd.read_csv(
-    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/PDF.csv',
+    r'/home/lumi/Dropbox/unipi/paper_NVD_forcasting/pics_and_distribution_fitting/PDF_Real_And_Forecasted/PDF_Forecasted.csv',
     skiprows = 1,
-    names=['Initial_data', 'x', 'Burr', 'Dagum', 'Pearson_5_3P'],
+    names=['Initial_data', 'x', 'Cauchy', 'Error', 'Laplace', 'Dagum_4P'],
     sep=",")
 
 initial_data = data_req.Initial_data
 initial_data.dropna()
 x = data_req.x
-burr = data_req.Burr
-dagum = data_req.Dagum
-pearson_5_3P = data_req.Pearson_5_3P
+cauchy = data_req.Cauchy
+error = data_req.Error
+laplace = data_req.Laplace
+dagum_4P = data_req.Dagum_4P
 
 # Create traces
 trace0 = go.Histogram(
     histfunc="count",
-    histnorm="probability density",
+    histnorm='probability density',
     x=initial_data,
+    # nbinsx=5,
     xbins=dict(
         start='1.9',
         end='10',
-        size='1.0125'),
-    autobinx=False,
+        size='2.1'), #2.6
+    # autobinx=False,
     marker=dict(
         color='rgb(158,202,225)',
         line=dict(
@@ -39,26 +41,37 @@ trace0 = go.Histogram(
 
 trace1 = go.Scatter(
     x=x,
-    y=burr,
+    y=cauchy,
     mode='lines',
-    name='Burr'
+    line_width=1,
+    name='Cauchy'
 )
 
 trace2 = go.Scatter(
     x=x,
-    y=dagum,
+    y=error,
     mode='lines',
-    name='Dagum'
+    line_width=1,
+    name='Error'
 )
 
 trace3 = go.Scatter(
     x=x,
-    y=pearson_5_3P,
+    y=laplace,
     mode='lines',
-    name='Pearson 5(3P)'
+    line_width=1,
+    name='Laplace'
 )
 
-data = [trace0, trace1, trace2, trace3]
+trace4 = go.Scatter(
+    x=x,
+    y=dagum_4P,
+    mode='lines',
+    line_width=1,
+    name='Dagum (4P)'
+)
+
+data = [trace0, trace1, trace2, trace3, trace4]
 
 layout = go.Layout(
     # title='Probability Density Function',
@@ -87,6 +100,6 @@ layout = go.Layout(
 )
 
 fig = go.Figure(data=data, layout=layout)
-# plotly.offline.plot(fig, filename='pdf.html')
-# plotly.offline.plot(fig, filename='pdf.html', image="svg")
-fig.write_image("pdf.pdf")
+# plotly.offline.plot(fig, filename='pdf_forecasted.html')
+# plotly.offline.plot(fig, filename='pdf_forecasted.html', image="svg")
+fig.write_image("pdf_forecasted.pdf")
